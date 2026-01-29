@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from .llm_client import GeminiClient
+from .llm_client import LLMClient
 from .models import AssessmentResult, Question
 from .prompts import (
     SYSTEM_PROMPT_ASSESS,
@@ -21,12 +21,12 @@ from .prompts import (
 class DataQualityFilter:
     """模块 A: 判断文本片段是否适合出题。"""
 
-    def __init__(self, client: GeminiClient) -> None:
+    def __init__(self, client: LLMClient) -> None:
         self._client = client
 
     def assess(self, raw_text: str) -> AssessmentResult:
         """
-        调用 Gemini，对 `raw_text` 进行评估，返回 `AssessmentResult`。
+        调用 LLM，对 `raw_text` 进行评估，返回 `AssessmentResult`。
         """
         payload = raw_text.strip()
         json_result = self._client.generate_structured_json(
@@ -39,7 +39,7 @@ class DataQualityFilter:
 class ScenarioRewriter:
     """模块 B: 匿名化与情境重构。"""
 
-    def __init__(self, client: GeminiClient) -> None:
+    def __init__(self, client: LLMClient) -> None:
         self._client = client
 
     def rewrite(self, raw_text: str) -> str:
@@ -57,7 +57,7 @@ class ScenarioRewriter:
 class QuestionGenerator:
     """模块 C: 在 `Cleaned_Context` 基础上生成单选题 JSON。"""
 
-    def __init__(self, client: GeminiClient) -> None:
+    def __init__(self, client: LLMClient) -> None:
         self._client = client
 
     def generate(self, cleaned_context: str) -> Question:
@@ -81,8 +81,14 @@ class QuestionerPipeline:
     3. 最后用 QuestionGenerator 生成标准单选题 JSON。
     """
 
-    def __init__(self, client: Optional[GeminiClient] = None) -> None:
-        self._client = client or GeminiClient()
+    def __init__(self, client: LLMClient) -> None:
+        """
+        初始化流水线。
+
+        参数：
+        - client: 实现了 `LLMClient` 接口的客户端实例（如 `OpenAIClient`）。
+        """
+        self._client = client
         self.filter = DataQualityFilter(self._client)
         self.rewriter = ScenarioRewriter(self._client)
         self.generator = QuestionGenerator(self._client)

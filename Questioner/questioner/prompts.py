@@ -1,7 +1,7 @@
 """
 存放 Questioner 模块用到的系统 Prompt。
 
-内容基本来自项目 Readme，并做了少量格式微调以便直接用于 Gemini。
+内容基本来自项目 Readme，并做了少量格式微调以便直接用于 LLM。
 """
 
 SYSTEM_PROMPT_ASSESS = """

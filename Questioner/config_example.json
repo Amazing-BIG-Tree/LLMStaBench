@@ -1,0 +1,35 @@
+{
+  "models": {
+    "openai_gpt4": {
+      "model_name": "gpt-4",
+      "api_key": "sk-your-openai-api-key",
+      "base_url": null
+    },
+    "openai_gpt35": {
+      "model_name": "gpt-3.5-turbo",
+      "api_key": "sk-your-openai-api-key",
+      "base_url": null
+    },
+    "qwen_plus": {
+      "model_name": "qwen-plus",
+      "api_key": "sk-your-dashscope-api-key",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    },
+    "qwen_turbo": {
+      "model_name": "qwen-turbo",
+      "api_key": "sk-your-dashscope-api-key",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    },
+    "glm_4": {
+      "model_name": "glm-4",
+      "api_key": "your-zhipu-api-key",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4"
+    },
+    "local_vllm": {
+      "model_name": "your-local-model-name",
+      "api_key": "dummy-key",
+      "base_url": "http://localhost:8000/v1"
+    }
+  },
+  "default": "openai_gpt4"
+}

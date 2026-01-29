@@ -32,3 +32,6 @@ terminals/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# 配置文件（包含敏感信息）
+Questioner/config.py
